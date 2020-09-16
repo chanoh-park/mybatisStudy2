@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class PartyVO {
 	
 	// 상위 클래스 정보 항목 조차도 private 설정 이유 : Encapsulation. 정보은닉. 캡슐화
-	private String loginId;		// 사용자 아이디
+	private String loginId;			// 사용자 아이디
 	private String pwd;				// 암호. 나중에는 암호화 할 것임
 	private String name;			// 이름
 	private Date birthDate;			// 생일, 창립일 등..
@@ -28,6 +28,14 @@ public class PartyVO {
 	public String toString() {
 		return "PartyVO [loginId=" + loginId + ", pwd=" + pwd + ", name=" + name + ", birthDate=" + birthDate
 				+ ", joinDate=" + joinDate + ", listContactPoint=" + listContactPoint + "]";
+	}
+	
+	protected String toStringPropOnly() {
+		return "loginId=" + loginId + ", pwd=" + pwd + ", name=" + name + "listContactPoint=" + listContactPoint;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

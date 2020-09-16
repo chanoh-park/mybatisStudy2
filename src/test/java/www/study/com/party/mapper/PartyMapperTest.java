@@ -16,7 +16,7 @@ import www.study.com.party.model.PartyVO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MapperTest {
+public class PartyMapperTest {
 	
 	@Setter(onMethod_ = @Autowired)
 	private PartyMapper partyMapper;
@@ -25,6 +25,17 @@ public class MapperTest {
 	public void test_aa_사용자아이디바탕으로찾기() {
 		try {
 			PartyVO party = partyMapper.findPartyByLoginId("a");
+			System.out.println(party);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void test_ab_사용자를연락처까지함께아이디바탕으로찾기() {
+		try {
+			// Method Signiture
+			PartyVO party = partyMapper.findPartyWithContactPointByLoginId("a");
 			System.out.println(party);
 		} catch (Exception e) {
 			e.printStackTrace();

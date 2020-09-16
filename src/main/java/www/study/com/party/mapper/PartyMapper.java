@@ -9,4 +9,6 @@ public interface PartyMapper {
 	// 가시성. 명시화
 	public PartyVO findPartyByLoginId(@Param("loginId") String loginId);
 
+	public PartyVO findPartyWithContactPointByLoginId(@Param("loginId") String loginId);
+
 }
