@@ -41,5 +41,16 @@ public class PartyMapperTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void test_zz_사용자탈퇴() {
+		try {
+			// Method Signiture
+			int cnt = partyMapper.secessionParty("b");
+			System.out.println("" + cnt);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

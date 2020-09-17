@@ -20,17 +20,18 @@ create table t_post (
 	hierarchy_id	varchar2(2000),
 	writer_id		varchar2(50),
 	content			varchar2(2000),
-	reg_date		date,				-- 등록일 년월일시분초
-	update_date		date,				-- 수정일 년월일시분초
+	reg_date		date default sysdate,				-- 등록일 년월일시분초
+	update_date		date default sysdate,				-- 수정일 년월일시분초
 	post_type		varchar2(50),		--POST, REPLY
 	bb_id			number(10),
 	title			varchar2(500),
-	primary key(hierarchy_id),
-	CONSTRAINT FK_post_bb FOREIGN KEY(bb_id) REFERENCES t_bulletin_board(id),
-	CONSTRAINT FK_post_party FOREIGN KEY(writer_id) REFERENCES t_party(login_id)
+	primary key(hierarchy_id)
 );
 
+alter table add CONSTRAINT FK_post_bb FOREIGN KEY(bb_id) REFERENCES t_bulletin_board(id);
+alter table add CONSTRAINT FK_post_party FOREIGN KEY(writer_id) REFERENCES t_party(login_id);
+	
 insert into t_post (hierarchy_id, bb_id, writer_id, post_type, title, content)
-	values('1', -1, 'a', 'POST', '안녕', '하세요');
+	values('-1', -1, 'a', 'POST', '안녕', '하세요');
 insert into t_post (hierarchy_id, bb_id, writer_id, post_type, title, content)
-	values('2', -1, 'a', 'POST', '호갱님', '많이 사세요');
+	values('-2', -1, 'a', 'POST', '호갱님', '많이 사세요');

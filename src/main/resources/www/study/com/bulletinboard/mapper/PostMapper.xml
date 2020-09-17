@@ -5,14 +5,14 @@
   
 <!-- association : 1:N에서 N쪽의 정보를 조회할 때 1쪽의 정보도 함께 읽을 것임 -->
 
-<mapper namespace="www.study.com.party.mapper.PostMapper">
+<mapper namespace="www.study.com.bulletinboard.mapper.PostMapper">
 
 	<resultMap id="replyResultMap"
 		type="www.study.com.bulletinboard.model.ReplyVO">
-		<constructor>
-			<idArg column="hierarchy_id" javaType="String" />
-			<idArg column="content" javaType="String" />
-		</constructor>
+		<id property="hierarchyIid" column="hierarchy_id" jdbcType="VARCHAR"/>
+		<result property="content" column="content" />
+		<result property="regDate" column="reg_date" />
+		<result property="updateDate" column="update_date" />
 		
 		<!-- 다른 Mapper.xml에서 정의된  resultMap을 활용하는 방법 --> 
 		<association  property="writer" columnPrefix="m_" resultMap="www.study.com.party.mapper.PartyMapper.partyResultMap"/>
@@ -33,12 +33,33 @@
 	
 	<resultMap id="bulletinBoardResultMap"
 		type="www.study.com.bulletinboard.model.BulletinBoardVO">
-		<constructor>
-			<idArg column="id" javaType="long" />
-			<idArg column="name" javaType="String" />
-		</constructor>
+		<id property="id" column="id" />
+		<result property="name" column="name" />
 	</resultMap>
 	
-	<!-- public PostVO findPartyByLoginId(@Param("postId") String postId); -->
+	<!-- public PostVO findPostWithWriter(@Param("postId") String postId); -->
+	<select id="findPostWithWriter" resultMap="replyResultMap">
+		select p.*, m.login_id m_login_id, m.name m_name, m.pwd m_pwd, m.birth_date m_birth_date, m.party_type m_party_type, m.gender m_gender, m.is_alive m_is_alive,
+			   b.id bb_id, b.name bb_name
+		  from t_post p, t_bulletin_board b, t_party m
+		 where p.hierarchy_id = #{postId}
+		   and p.writer_id = m.login_id 
+		   and p.bb_id = b.id 
+	</select>
+	
+	<!-- public List<PostVO> searchPost(@Param("arrUserSearch") String[] arrUserSearch); -->
+	<select id="searchPost" resultMap="replyResultMap">
+		select p.*
+		  from m_post2tag m, t_post p
+		 where m.tag_id in (
+			select id
+			  from t_hashtag
+			 where tag in 
+			       <foreach collection="arrUserSearch" item="searchWord" open="(" close=")" separator=",">
+			       		#{searchWord}
+			       </foreach>
+			)
+		   and m.post_id = p.hierarchy_id
+	</select>
 		
 </mapper>

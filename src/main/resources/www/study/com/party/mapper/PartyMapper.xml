@@ -58,5 +58,19 @@
 		  	   left outer join t_contact_point cp on p.login_id = cp.party_id
 		 where login_id = #{loginId}
 	</select>
+	
+	<!-- public PartyVO secessionParty(@Param("loginId") String loginId); -->
+	<update id="secessionParty">
+		update t_party
+		  set pwd = null, 
+			  birth_date = null, 
+			  join_date = null, 
+			  gender = null,
+			  is_alive = false
+		 where login_id = #{loginId};
+		 
+		delete from t_contact_point
+		 where party_id = #{loginId};
+	</update>
 		
 </mapper>

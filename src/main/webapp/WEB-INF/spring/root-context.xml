@@ -36,7 +36,8 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<mybatis-spring:scan base-package="www.study.com.party.mapper"/>
-	<mybatis-spring:scan base-package="www.study.com.bulletinboard.mapper"/>
+	<mybatis-spring:scan base-package="www.study.com.party.mapper" />
+	<mybatis-spring:scan base-package="www.study.com.bulletinboard.mapper" />
+	<mybatis-spring:scan base-package="www.study.com.search.mapper" />
 			
 </beans>

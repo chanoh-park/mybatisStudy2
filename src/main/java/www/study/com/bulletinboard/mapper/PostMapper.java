@@ -1,5 +1,7 @@
 package www.study.com.bulletinboard.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import www.study.com.bulletinboard.model.PostVO;
@@ -12,6 +14,8 @@ import www.study.com.bulletinboard.model.PostVO;
  */
 public interface PostMapper {
 
-	public PostVO findPartyByLoginId(@Param("postId") String postId);
+	public PostVO findPostWithWriter(@Param("postId") String postId);
+
+	public List<PostVO> searchPost(@Param("arrUserSearch") String[] arrUserSearch);
 
 }

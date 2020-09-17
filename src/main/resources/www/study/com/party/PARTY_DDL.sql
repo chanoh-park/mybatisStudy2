@@ -3,7 +3,8 @@ drop table t_contact_point_type;
 drop table t_party;
 
 
--- loging_id, name, pwd, birth_date, party_type, gender
+-- login_id, name, pwd, birth_date, party_type, gender, is_alive
+-- 탈퇴 기능 : 절대로 Delete가 아니다. login_id, name은 남겨 두고 나머지는 삭제
 create table t_party (
 	login_id		varchar2(50),
 	pwd				varchar2(200),
@@ -12,10 +13,13 @@ create table t_party (
 	join_date		date,
 	party_type		varchar2(50),
 	gender			varchar2(50),
+	is_alive		char(1) constraint t_party_is_alive_CK
+						check(is_alive = '0' or is_alive = '1'),
 	primary key(login_id)
 );
 
 insert into t_party (login_id, pwd, name, birth_date, join_date, party_type, gender) values ('a', 'a', '홍길동', '1500.01.01', '2000.01.01', 'PERSON', 'mail');
+insert into t_party (login_id, pwd, name, birth_date, join_date, party_type, gender) values ('b', 'b', '이순신', '1500.01.01', '2000.01.01', 'PERSON', 'mail');
 
 
 -- 연락처 유형
